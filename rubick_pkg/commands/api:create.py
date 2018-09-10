@@ -1,8 +1,6 @@
 import click
 import os
 
-from git import Repo
-from os.path import expanduser
 from rubick_pkg.rubick import pass_context
 from rubick_pkg.utils import dir, file
 
@@ -18,13 +16,7 @@ from rubick_pkg.utils import dir, file
               help='Versión de tu api rest.')
 @pass_context
 def command(ctx, **kwargs):
-    scafolds_remote_repo = ctx.config['scaffolds']['url']
-    scaffolds_local_repo = os.path.join(expanduser("~"), 'rubick-scaffolds')
-
-    if not dir.exists(scaffolds_local_repo):
-        Repo.clone_from(scafolds_remote_repo, scaffolds_local_repo)
-
-    scaffold_project_dir = os.path.join(scaffolds_local_repo, 'rest')
+    scaffold_project_dir = os.path.join(ctx.scaffolds_local_repo, 'rest')
 
     if dir.exists(scaffold_project_dir):
         for root, dirs, files in os.walk(scaffold_project_dir):
@@ -42,6 +34,7 @@ def command(ctx, **kwargs):
                     file.create(new_file_path, template_content, **kwargs)
 
                     ## created files ##
+                    print("== Archivos creados ==")
                     print(new_file_path)
     else:
         print('No se encontro el directorio base para el api rest')

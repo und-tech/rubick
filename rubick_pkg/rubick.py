@@ -1,7 +1,9 @@
 import click
 import os
 
-from rubick_pkg.utils import file
+from git import Repo
+from os.path import expanduser
+from rubick_pkg.utils import dir, file
 
 
 config_folder = os.path.join(os.path.dirname(__file__), 'config.yaml')
@@ -38,10 +40,14 @@ class rubickCLI(click.MultiCommand):
             return
 
 
-cli = rubickCLI(help='Esta herramienta ayuda a crear proyetos en base a un scafold.')
+cli = rubickCLI(help='Esta herramienta ayuda a crear proyectos en base a un scaffold.')
 
 
 @click.command(cls=rubickCLI)
 @pass_context
 def cli(ctx):
-    pass
+    ctx.scaffolds_remote_repo = ctx.config['scaffolds']['url']
+    ctx.scaffolds_local_repo = os.path.join(expanduser("~"), 'rubick-scaffolds')
+
+    if not dir.exists(ctx.scaffolds_local_repo):
+        Repo.clone_from(ctx.scaffolds_remote_repo, ctx.scaffolds_local_repo)
