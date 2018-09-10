@@ -5,7 +5,7 @@ package_dir = os.path.abspath(os.path.dirname(__file__))
 setup(
     name = "rubick",
     version = "0.0.1",
-    author = "Orvis Venture",
+    author = "Orbis Venture S.A.C",
     author_email = "oscar.sanchez@orbis.com.pe",
     description = "Herramienta para la creación de proyectos base",
     package_data={'': ['config.yaml']},
