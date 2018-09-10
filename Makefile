@@ -15,9 +15,11 @@ install-test: ## install package from pypi test
 
 install-developer: ## install command for developer mode
 	sudo python3 setup.py install
+	@make clear
 
 remove: ## remove library
 	sudo pip3 uninstall rubick
+	@make clear
 
 clear: ## clear workspace
-	sudo rm -rf build dist  rubick.egg-info
+	sudo rm -rf build dist rubick.egg-info
