@@ -22,6 +22,8 @@ $ make install-developer
 $ rubick
 ~~~~
 
+[![asciicast](https://asciinema.org/a/ArNF5eyZkVdojLwq78Kvjd15g.png)](https://asciinema.org/a/ArNF5eyZkVdojLwq78Kvjd15g)
+
 # Creación de un proyecto
 
 Este comando creara la estructura de un proyecto Rest basado en python
@@ -29,6 +31,8 @@ Este comando creara la estructura de un proyecto Rest basado en python
 ~~~~
 $ rubick api:create
 ~~~~
+
+[![asciicast](https://asciinema.org/a/sJKZVCFcMZed30s7XNduDdSE4.png)](https://asciinema.org/a/sJKZVCFcMZed30s7XNduDdSE4)
 
 Para ver más comandos:
 
