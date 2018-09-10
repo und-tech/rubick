@@ -19,6 +19,7 @@ def command(ctx, **kwargs):
     scaffold_project_dir = os.path.join(ctx.scaffolds_local_repo, 'rest')
 
     if dir.exists(scaffold_project_dir):
+        print("== Archivos creados ==")
         for root, dirs, files in os.walk(scaffold_project_dir):
             for file_name in files:
                     ## template content ##
@@ -34,7 +35,6 @@ def command(ctx, **kwargs):
                     file.create(new_file_path, template_content, **kwargs)
 
                     ## created files ##
-                    print("== Archivos creados ==")
                     print(new_file_path)
     else:
         print('No se encontro el directorio base para el api rest')
