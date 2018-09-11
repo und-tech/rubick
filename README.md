@@ -34,6 +34,15 @@ $ rubick api:create
 
 [![asciicast](https://asciinema.org/a/sJKZVCFcMZed30s7XNduDdSE4.png)](https://asciinema.org/a/sJKZVCFcMZed30s7XNduDdSE4)
 
+
+# Actualización de Scaffolds
+
+Si los templates son modificados podemos usar este comando para actualizar nuestra copia local
+
+~~~~
+$ rubick scaffolds:update
+~~~~
+
 Para ver más comandos:
 
 ~~~~
