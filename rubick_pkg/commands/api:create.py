@@ -14,6 +14,24 @@ from rubick_pkg.utils import dir, file
               help='Nombre del paquete.')
 @click.option('--api_version', default='v1', prompt='Ingresa la versión de tu api rest',
               help='Versión de tu api rest.')
+@click.option('--container_port', default='8080', prompt='Ingresa el puerto para la aplicación',
+              help='Puerto para la aplicación. Es utilizado por Docker y por TaskDefinition')
+@click.option('--slack_web_hook', default='undefined', prompt='Ingresa el webhook para las notificaciones de slack',
+              help='Webhook para notificaciones de despliegue, se utiliza en la ejecución de Job de Jenkins.')
+@click.option('--https_listener_dev', default='undefined', prompt='Ingresa el arn del listener para el ambiente de DEV',
+              help='ARN asociado al listener de DEV, se utiliza dentro de cloudformation.')
+@click.option('--https_listener_pre', default='undefined', prompt='Ingresa el arn del listener para el ambiente de PRE',
+              help='ARN asociado al listener de PRE, se utiliza dentro de cloudformation.')
+@click.option('--https_listener_prod', default='undefined', prompt='Ingresa el arn del listener para el ambiente de PROD',
+              help='ARN asociado al listener de PROD, se utiliza dentro de cloudformation.')
+@click.option('--vpc_dev', default='undefined', prompt='Ingresa el arn de la vpc para el ambiente de DEV',
+              help='ARN asociado a la VPC de DEV, se utiliza dentro de cloudformation.')
+@click.option('--vpc_pre', default='undefined', prompt='Ingresa el arn de la vpc para el ambiente de PRE',
+              help='ARN asociado a la VPC de PRE, se utiliza dentro de cloudformation.')
+@click.option('--vpc_prod', default='undefined', prompt='Ingresa el arn de la vpc para el ambiente de PROD',
+              help='ARN asociado a la VPC de PROD, se utiliza dentro de cloudformation.')
+@click.option('--https_priority', default='undefined', prompt='Ingresa la prioridad del listener https',
+              help='Prioridad de listener HTTPS en el ALB, este número cambia de acuerdo al ambiente.')
 @pass_context
 def command(ctx, **kwargs):
     scaffold_project_dir = os.path.join(ctx.scaffolds_local_repo, 'rest')
