@@ -15,8 +15,6 @@ from rubick_pkg.utils import dir, file
               help='Nombre de dominio del producto.')
 @click.option('--command_name', default='undefined', prompt='Ingresa el nombre del comando',
               help='Nombre del comando.')
-@click.option('--package', default='context', prompt='Ingresa el nombre del paquete principal para tu app',
-              help='Nombre del paquete.')
 @pass_context
 def command(ctx, **kwargs):
     try:
@@ -24,6 +22,10 @@ def command(ctx, **kwargs):
 
         if dir.exists(scaffold_project_dir):
             print("== Archivos creados ==")
+
+            ## set schedule package ##
+            kwargs['package'] = '%sSchedules' % kwargs['product_name']
+
             for root, dirs, files in os.walk(scaffold_project_dir):
                 for file_name in files:
                     ## template content ##
