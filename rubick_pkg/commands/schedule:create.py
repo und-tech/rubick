@@ -11,6 +11,8 @@ from rubick_pkg.utils import dir, file
               help='Nombre del proyecto.')
 @click.option('--product_name', default='undefined', prompt='Ingresa el nombre del producto',
               help='Nombre del producto.')
+@click.option('--domain', default='undefined', prompt='Ingresa el nombre de dominio del producto',
+              help='Nombre de dominio del producto.')
 @click.option('--command_name', default='undefined', prompt='Ingresa el nombre del comando',
               help='Nombre del comando.')
 @click.option('--package', default='context', prompt='Ingresa el nombre del paquete principal para tu app',
@@ -18,7 +20,7 @@ from rubick_pkg.utils import dir, file
 @pass_context
 def command(ctx, **kwargs):
     try:
-        scaffold_project_dir = os.path.join(ctx.scaffolds_local_repo, 'pycron')
+        scaffold_project_dir = os.path.join(ctx.scaffolds_local_repo, 'schedule', 'create')
 
         if dir.exists(scaffold_project_dir):
             print("== Archivos creados ==")
