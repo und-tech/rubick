@@ -32,8 +32,7 @@ def command(ctx, **kwargs):
                     new_project_path = root.replace(scaffold_project_dir, os.path.join('.', kwargs['name'])) \
                                            .replace(scaffold_project_dir, os.path.join('.', kwargs['name']))
 
-                    new_file_path = os.path.join(new_project_path, file_name
-                                                 .replace('+command_name+.py', '%s.py' % kwargs['command_name'])
+                    new_file_path = os.path.join(new_project_path, file_name.replace('+command_name+.py', '%s.py' % kwargs['command_name']))
 
                     new_dir_path = os.path.dirname(new_file_path)
 
