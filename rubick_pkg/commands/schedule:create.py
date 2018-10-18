@@ -23,22 +23,17 @@ def command(ctx, **kwargs):
         if dir.exists(scaffold_project_dir):
             print("== Archivos creados ==")
 
-            ## set schedule package ##
-            kwargs['package'] = '%sSchedules' % kwargs['product_name']
-
             for root, dirs, files in os.walk(scaffold_project_dir):
                 for file_name in files:
                     ## template content ##
                     template_content = file.read(os.path.join(root, file_name))
 
                     ## paths for new project ##
-                    new_project_path = root.replace('+package+', kwargs['package'])\
-                                           .replace(scaffold_project_dir, os.path.join('.', kwargs['name'])) \
+                    new_project_path = root.replace(scaffold_project_dir, os.path.join('.', kwargs['name'])) \
                                            .replace(scaffold_project_dir, os.path.join('.', kwargs['name']))
 
                     new_file_path = os.path.join(new_project_path, file_name
                                                  .replace('+command_name+.py', '%s.py' % kwargs['command_name'])
-                                                 .replace('+owner+_schedules', '%s_schedules' % kwargs['product_name']))
 
                     new_dir_path = os.path.dirname(new_file_path)
 
