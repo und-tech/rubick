@@ -21,6 +21,10 @@ def create(file_name, template_content=None, **kwargs):
     is_bash(file_name)
 
 
+def assing_execute(file_name):
+    os.chmod(file_name, 0o755)
+
+
 def is_bash(file_name):
     if file_name[-3:] == '.sh':
-        os.chmod(file_name, 0o755)
+        assing_execute(file_name)

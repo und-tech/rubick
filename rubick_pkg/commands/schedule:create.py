@@ -32,13 +32,18 @@ def command(ctx, **kwargs):
                     new_project_path = root.replace(scaffold_project_dir, os.path.join('.', kwargs['name'])) \
                                            .replace(scaffold_project_dir, os.path.join('.', kwargs['name']))
 
-                    new_file_path = os.path.join(new_project_path, file_name.replace('+command_name+.py', '%s.py' % kwargs['command_name']))
+                    new_file_path = os.path.join(new_project_path, file_name.replace('+command_name+.py', '%s.py' % kwargs['command_name']) \
+                                                                    .replace('+owner+', kwargs['product_name']))
 
                     new_dir_path = os.path.dirname(new_file_path)
 
                     ## create project ##
                     dir.create(new_dir_path)
                     file.create(new_file_path, template_content, **kwargs)
+
+                    executable_file = 'bin/%s' % kwargs['product_name']
+                    if new_file_path.endswith(executable_file):
+                        file.assing_execute(new_file_path)
 
                     ## created files ##
                     print(new_file_path)
