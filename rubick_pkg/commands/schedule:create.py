@@ -20,36 +20,41 @@ def command(ctx, **kwargs):
     try:
         scaffold_project_dir = os.path.join(ctx.scaffolds_local_repo, 'schedule', 'create')
 
-        if dir.exists(scaffold_project_dir):
-            print("== Archivos creados ==")
+        # Check scaffold template
+        if not dir.exists(scaffold_project_dir):
+            raise Exception('No se encontro el directorio base para el schedule, utiliza rubick scaffolds:update')
 
-            for root, dirs, files in os.walk(scaffold_project_dir):
-                for file_name in files:
-                    ## template content ##
-                    template_content = file.read(os.path.join(root, file_name))
+        # set schedule package
+        kwargs['package'] = 'schedules'
 
-                    ## paths for new project ##
-                    new_project_path = root.replace(scaffold_project_dir, os.path.join('.', kwargs['name'])) \
-                                           .replace(scaffold_project_dir, os.path.join('.', kwargs['name']))
+        ctx.logger.info("== Archivos creados ==")
+        for root, dirs, files in os.walk(scaffold_project_dir):
+            for file_name in files:
+                # template content
+                template_content = file.read(os.path.join(root, file_name))
 
-                    new_file_path = os.path.join(new_project_path, file_name.replace('+command_name+.py', '%s.py' % kwargs['command_name']) \
-                                                                    .replace('+owner+', kwargs['product_name']))
+                # paths for new project
+                new_project_path = root.replace('+package+', kwargs['package'])\
+                                       .replace(scaffold_project_dir, os.path.join('.', kwargs['name'])) \
+                                       .replace(scaffold_project_dir, os.path.join('.', kwargs['name']))
 
-                    new_dir_path = os.path.dirname(new_file_path)
+                new_file_path = os.path.join(new_project_path, file_name
+                                             .replace('+command_name+.py', '%s.py' % kwargs['command_name'])
+                                             .replace('+owner+', kwargs['product_name']))
 
-                    ## create project ##
-                    dir.create(new_dir_path)
-                    file.create(new_file_path, template_content, **kwargs)
+                new_dir_path = os.path.dirname(new_file_path)
 
-                    executable_file = 'bin/%s' % kwargs['product_name']
-                    if new_file_path.endswith(executable_file):
-                        file.assing_execute(new_file_path)
+                # create project
+                if not dir.create(new_dir_path):
+                    raise Exception('No se pudo crear el directorio: %s' % new_dir_path)
 
-                    ## created files ##
-                    print(new_file_path)
-        else:
-            print('No se encontro el directorio base para la creación del proyecto schedule')
+                file.create(new_file_path, template_content, **kwargs)
+
+                executable_file = 'bin/%s' % kwargs['product_name']
+                if new_file_path.endswith(executable_file):
+                    file.assing_execute(new_file_path)
+
+                # created files
+                print(new_file_path)
     except Exception as e:
-        print("== Ocrrio un problema durante la creación ==")
-        print("="*10)
-        print(e)
+        ctx.logger.error(e)

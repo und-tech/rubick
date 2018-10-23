@@ -34,25 +34,31 @@ from rubick_pkg.utils import dir, file
               help='Prioridad de listener HTTPS en el ALB, este número cambia de acuerdo al ambiente.')
 @pass_context
 def command(ctx, **kwargs):
-    scaffold_project_dir = os.path.join(ctx.scaffolds_local_repo, 'rest')
+    try:
+        scaffold_project_dir = os.path.join(ctx.scaffolds_local_repo, 'rest')
 
-    if dir.exists(scaffold_project_dir):
-        print("== Archivos creados ==")
+        # Check scaffold template
+        if not dir.exists(scaffold_project_dir):
+            raise Exception('No se encontro el directorio base para el api rest, utiliza rubick scaffolds:update')
+
+        ctx.logger.info("== Archivos creados ==")
         for root, dirs, files in os.walk(scaffold_project_dir):
             for file_name in files:
-                    ## template content ##
+                    # template content
                     template_content = file.read(os.path.join(root, file_name))
 
-                    ## paths for new project ##
+                    # paths for new project
                     new_project_path = root.replace('+package+', kwargs['package']).replace(scaffold_project_dir, os.path.join('.', kwargs['name']))
                     new_file_path = os.path.join(new_project_path, file_name)
                     new_dir_path = os.path.dirname(new_file_path)
 
-                    ## create project ##
-                    dir.create(new_dir_path)
+                    # create project
+                    if not dir.create(new_dir_path):
+                        raise Exception('No se pudo crear el directorio: %s' % new_dir_path)
+
                     file.create(new_file_path, template_content, **kwargs)
 
-                    ## created files ##
+                    # created files
                     print(new_file_path)
-    else:
-        print('No se encontro el directorio base para el api rest')
+    except Exception as e:
+        ctx.logger.error(e)

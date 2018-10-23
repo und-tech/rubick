@@ -4,7 +4,10 @@ from jinja2 import Template
 
 
 def read(file_path):
-    return open(file_path, 'r').read()
+    try:
+        return open(file_path, 'r').read()
+    except Exception:
+        return False
 
 
 def read_yml(file_path):
