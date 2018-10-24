@@ -1,5 +1,6 @@
 import click
 import os
+import traceback
 
 from rubick_pkg.rubick import pass_context
 from rubick_pkg.utils import dir, file
@@ -62,3 +63,5 @@ def command(ctx, **kwargs):
                     print(new_file_path)
     except Exception as e:
         ctx.logger.error(e)
+        if ctx.verbose:
+            ctx.logger.error(traceback.format_exc())

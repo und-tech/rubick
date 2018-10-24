@@ -1,5 +1,6 @@
 import click
 import os
+import traceback
 
 from git import Repo
 from os.path import expanduser
@@ -52,12 +53,16 @@ cli = rubickCLI(help='Esta herramienta ayuda a crear proyectos en base a un scaf
 
 
 @click.command(cls=rubickCLI)
+@click.option('-v', '--verbose', is_flag=True, help='Activa el traceback del código.')
 @pass_context
-def cli(ctx):
+def cli(ctx, verbose):
     try:
         ctx.scaffolds_remote_repo = ctx.config['scaffolds']['url']
         ctx.scaffolds_local_repo = os.path.join(expanduser("~"), 'rubick-scaffolds')
+        ctx.verbose = verbose
         if not dir.exists(ctx.scaffolds_local_repo):
             Repo.clone_from(ctx.scaffolds_remote_repo, ctx.scaffolds_local_repo)
     except Exception as e:
         ctx.logger.error(e)
+        if ctx.verbose:
+            ctx.logger.error(traceback.format_exc())
