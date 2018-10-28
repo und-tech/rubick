@@ -14,3 +14,14 @@ def create(path_name):
 
 def exists(dir_name):
     return os.path.exists(dir_name)
+
+
+def walk(path):
+    resp = []
+    for root, dirs, files in os.walk(path):
+        resp.append({
+            'root': root,
+            'dirs': dirs,
+            'files': files
+        })
+    return resp

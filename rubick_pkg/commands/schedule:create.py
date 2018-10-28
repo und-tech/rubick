@@ -1,10 +1,10 @@
 
 import click
 import os
-import traceback
 
 from rubick_pkg.rubick import pass_context
-from rubick_pkg.utils import dir, file
+from rubick_pkg.utils import dir, file, try_execpt
+from rubick_pkg import SCAFFOLD_NOT_FOUND, CREATED_FILES, DIRECTORY_NOT_CREATED, SUCCESSFUL_COMMAND, TITTLE_BAR, END_BAR
 
 
 @click.command()
@@ -17,47 +17,57 @@ from rubick_pkg.utils import dir, file
 @click.option('--command_name', default='undefined', prompt='Ingresa el nombre del comando',
               help='Nombre del comando.')
 @pass_context
+@try_execpt.handler
 def command(ctx, **kwargs):
-    try:
-        scaffold_project_dir = os.path.join(ctx.scaffolds_local_repo, 'schedule', 'create')
+    __create_project(ctx, **kwargs)
+    ctx.logger.info(SUCCESSFUL_COMMAND)
 
-        # Check scaffold template
-        if not dir.exists(scaffold_project_dir):
-            raise Exception('No se encontro el directorio base para el schedule, utiliza rubick scaffolds:update')
 
-        # set schedule package
-        kwargs['package'] = 'schedules'
+def __create_file_path(full_file_name):
+    path = os.path.dirname(full_file_name)
+    # create project
+    if not dir.create(path):
+        raise Exception(DIRECTORY_NOT_CREATED % path)
 
-        ctx.logger.info("== Archivos creados ==")
-        for root, dirs, files in os.walk(scaffold_project_dir):
-            for file_name in files:
-                # template content
-                template_content = file.read(os.path.join(root, file_name))
 
-                # paths for new project
-                new_project_path = root.replace('+package+', kwargs['package'])\
-                                       .replace(scaffold_project_dir, os.path.join('.', kwargs['name'])) \
-                                       .replace(scaffold_project_dir, os.path.join('.', kwargs['name']))
+def __create_file(full_file_name, template, **kwargs):
+    file.create(full_file_name, template, **kwargs)
+    executable_file = 'bin/%s' % kwargs['product_name']
+    if full_file_name.endswith(executable_file):
+        file.assing_execute(full_file_name)
 
-                new_file_path = os.path.join(new_project_path, file_name
-                                             .replace('+command_name+.py', '%s.py' % kwargs['command_name'])
-                                             .replace('+owner+', kwargs['product_name']))
 
-                new_dir_path = os.path.dirname(new_file_path)
+def __create_project(ctx, **kwargs):
+    scaffold = __get_scaffold_dir(ctx)
 
-                # create project
-                if not dir.create(new_dir_path):
-                    raise Exception('No se pudo crear el directorio: %s' % new_dir_path)
+    # set schedule package
+    kwargs['package'] = 'schedules'
 
-                file.create(new_file_path, template_content, **kwargs)
+    click.echo(TITTLE_BAR % CREATED_FILES)
+    for root, dirs, files in os.walk(scaffold):
+        for file_name in files:
+            # template content
+            template_content = file.read(os.path.join(root, file_name))
 
-                executable_file = 'bin/%s' % kwargs['product_name']
-                if new_file_path.endswith(executable_file):
-                    file.assing_execute(new_file_path)
+            # paths for new project
+            project_path = root.replace('+package+', kwargs['package'])\
+                .replace(scaffold, os.path.join('.', kwargs['name']))\
+                .replace(scaffold, os.path.join('.', kwargs['name']))
 
-                # created files
-                print(new_file_path)
-    except Exception as e:
-        ctx.logger.error(e)
-        if ctx.verbose:
-            ctx.logger.error(traceback.format_exc())
+            full_file_name = os.path.join(project_path, file_name
+                                          .replace('+command_name+.py', '%s.py' % kwargs['command_name'])
+                                          .replace('+owner+', kwargs['product_name']))
+
+            __create_file_path(full_file_name=full_file_name)
+            __create_file(full_file_name=full_file_name, template=template_content, **kwargs)
+
+            # created files
+            click.echo(full_file_name)
+    click.echo(END_BAR)
+
+
+def __get_scaffold_dir(ctx):
+    scaffold_project_dir = os.path.join(ctx.scaffolds_local, 'schedule', 'create')
+    if not dir.exists(scaffold_project_dir):
+        raise Exception(SCAFFOLD_NOT_FOUND)
+    return scaffold_project_dir

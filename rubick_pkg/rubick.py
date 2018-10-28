@@ -1,10 +1,10 @@
 import click
 import os
-import traceback
 
 from git import Repo
 from os.path import expanduser
-from rubick_pkg.utils import dir, file, logger
+from rubick_pkg.utils import dir, file, logger, try_execpt
+from rubick_pkg import HELP_DESCRIPTION, RUBICK_FILE_NAME
 
 
 config_folder = os.path.join(os.path.dirname(__file__), 'config.yaml')
@@ -13,15 +13,21 @@ command_folder = os.path.join(os.path.dirname(__file__), 'commands')
 
 class Context(object):
     def __init__(self):
-        self.config = file.read_yml(config_folder)
-        self.logger = logger.create('rubick_logger')
+        try:
+            self.pwd = os.getcwd()
+            self.config = file.read_yml(config_folder)
+            self.logger = logger.create('rubick_logger')
+            self.scaffolds_remote = self.config['scaffolds']['url']
+            self.scaffolds_local = os.path.join(expanduser("~"), 'rubick-scaffolds')
+            self.rubick_data = file.read_json(RUBICK_FILE_NAME) if file.exists(RUBICK_FILE_NAME) else None
+        except Exception as e:
+            raise e
 
 
 pass_context = click.make_pass_decorator(Context, ensure=True)
 
 
-class rubickCLI(click.MultiCommand):
-
+class RubickCLI(click.MultiCommand):
     def list_commands(self, ctx):
         try:
             rv = []
@@ -49,20 +55,14 @@ class rubickCLI(click.MultiCommand):
             log.error(e)
 
 
-cli = rubickCLI(help='Esta herramienta ayuda a crear proyectos en base a un scaffold.')
+cli = RubickCLI(help=HELP_DESCRIPTION)
 
 
-@click.command(cls=rubickCLI)
+@click.command(cls=RubickCLI)
 @click.option('-v', '--verbose', is_flag=True, help='Activa el traceback del código.')
 @pass_context
+@try_execpt.handler
 def cli(ctx, verbose):
-    try:
-        ctx.scaffolds_remote_repo = ctx.config['scaffolds']['url']
-        ctx.scaffolds_local_repo = os.path.join(expanduser("~"), 'rubick-scaffolds')
-        ctx.verbose = verbose
-        if not dir.exists(ctx.scaffolds_local_repo):
-            Repo.clone_from(ctx.scaffolds_remote_repo, ctx.scaffolds_local_repo)
-    except Exception as e:
-        ctx.logger.error(e)
-        if ctx.verbose:
-            ctx.logger.error(traceback.format_exc())
+    ctx.verbose = verbose
+    if not dir.exists(ctx.scaffolds_local):
+        Repo.clone_from(ctx.scaffolds_remote, ctx.scaffolds_local)

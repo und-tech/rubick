@@ -37,13 +37,13 @@ def create(file_name, template_content=None, **kwargs):
     is_bash(file_name)
 
 
-def append(file_name, content):
-    with open(file_name, 'a') as f:
+def append(file_path, content):
+    with open(file_path, 'a') as f:
         f.write(content)
 
 
-def get_template_block(file_name, block, **kwargs):
-    template = Template(read(file_name))
+def get_template_block(file_path, block, **kwargs):
+    template = Template(read(file_path))
     context = template.new_context(vars=kwargs)
     return concat(template.blocks[block](context))
 
@@ -55,3 +55,7 @@ def assing_execute(file_name):
 def is_bash(file_name):
     if file_name[-3:] == '.sh':
         assing_execute(file_name)
+
+
+def exists(file_name):
+    return os.path.isfile(file_name)
