@@ -1,6 +1,7 @@
 import os
 import yaml
 import json
+import re
 
 from jinja2 import Template
 from jinja2.utils import concat
@@ -48,14 +49,25 @@ def get_template_block(file_path, block, **kwargs):
     return concat(template.blocks[block](context))
 
 
-def assing_execute(file_name):
+def assign_execute(file_name):
     os.chmod(file_name, 0o755)
 
 
 def is_bash(file_name):
     if file_name[-3:] == '.sh':
-        assing_execute(file_name)
+        assign_execute(file_name)
 
 
 def exists(file_name):
     return os.path.isfile(file_name)
+
+
+def create_rich_file(full_file_name, template, **kwargs):
+    create(full_file_name, template, **kwargs)
+    is_bash(full_file_name)
+    is_executable(full_file_name)
+
+
+def is_executable(full_file_name):
+    if re.match('^[\w/]+(\/bin\/)[\w]*$', full_file_name):
+        assign_execute(full_file_name)

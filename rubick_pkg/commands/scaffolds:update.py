@@ -3,7 +3,7 @@ import shutil
 
 from rubick_pkg.rubick import pass_context
 from rubick_pkg.utils import try_execpt
-from rubick_pkg import SUCCESSFUL_COMMAND
+from rubick_pkg.responses import SUCCESSFUL_COMMAND
 from git import Repo
 
 

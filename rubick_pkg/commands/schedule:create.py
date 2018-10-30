@@ -2,9 +2,9 @@
 import click
 import os
 
-from rubick_pkg.rubick import pass_context
+from rubick_pkg.context import pass_context
 from rubick_pkg.utils import dir, file, try_execpt
-from rubick_pkg import SCAFFOLD_NOT_FOUND, CREATED_FILES, DIRECTORY_NOT_CREATED, SUCCESSFUL_COMMAND, TITTLE_BAR, END_BAR
+from rubick_pkg.responses import CREATED_FILES, SUCCESSFUL_COMMAND, TITTLE_BAR, END_BAR
 
 
 @click.command()
@@ -19,26 +19,12 @@ from rubick_pkg import SCAFFOLD_NOT_FOUND, CREATED_FILES, DIRECTORY_NOT_CREATED,
 @pass_context
 @try_execpt.handler
 def command(ctx, **kwargs):
-    __create_project(ctx, **kwargs)
+    __create_project(**kwargs)
     ctx.logger.info(SUCCESSFUL_COMMAND)
 
 
-def __create_file_path(full_file_name):
-    path = os.path.dirname(full_file_name)
-    # create project
-    if not dir.create(path):
-        raise Exception(DIRECTORY_NOT_CREATED % path)
-
-
-def __create_file(full_file_name, template, **kwargs):
-    file.create(full_file_name, template, **kwargs)
-    executable_file = 'bin/%s' % kwargs['product_name']
-    if full_file_name.endswith(executable_file):
-        file.assing_execute(full_file_name)
-
-
-def __create_project(ctx, **kwargs):
-    scaffold = __get_scaffold_dir(ctx)
+def __create_project(**kwargs):
+    scaffold = dir.get_scaffold_dir(paths=['schedule', 'create'])
 
     # set schedule package
     kwargs['package'] = 'schedules'
@@ -58,16 +44,9 @@ def __create_project(ctx, **kwargs):
                                           .replace('+command_name+.py', '%s.py' % kwargs['command_name'])
                                           .replace('+owner+', kwargs['product_name']))
 
-            __create_file_path(full_file_name=full_file_name)
-            __create_file(full_file_name=full_file_name, template=template_content, **kwargs)
+            dir.create_file_path(full_file_name=full_file_name)
+            file.create_rich_file(full_file_name=full_file_name, template=template_content, **kwargs)
 
             # created files
             click.echo(full_file_name)
     click.echo(END_BAR)
-
-
-def __get_scaffold_dir(ctx):
-    scaffold_project_dir = os.path.join(ctx.scaffolds_local, 'schedule', 'create')
-    if not dir.exists(scaffold_project_dir):
-        raise Exception(SCAFFOLD_NOT_FOUND)
-    return scaffold_project_dir

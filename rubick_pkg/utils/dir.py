@@ -1,5 +1,8 @@
 import os
 
+from rubick_pkg.context import pass_context
+from rubick_pkg.responses import DIRECTORY_NOT_CREATED, SCAFFOLD_NOT_FOUND
+
 
 def create(path_name):
     try:
@@ -25,3 +28,18 @@ def walk(path):
             'files': files
         })
     return resp
+
+
+def create_file_path(full_file_name):
+    path = os.path.dirname(full_file_name)
+    # create project
+    if not create(path):
+        raise Exception(DIRECTORY_NOT_CREATED % path)
+
+
+@pass_context
+def get_scaffold_dir(ctx, paths=[]):
+    scaffold_dir = os.path.join(ctx.scaffolds_local, *paths)
+    if not exists(scaffold_dir):
+        raise Exception(SCAFFOLD_NOT_FOUND)
+    return scaffold_dir

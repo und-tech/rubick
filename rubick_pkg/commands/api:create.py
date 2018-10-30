@@ -1,9 +1,9 @@
 import click
 import os
-import traceback
 
-from rubick_pkg.rubick import pass_context
-from rubick_pkg.utils import dir, file
+from rubick_pkg.context import pass_context
+from rubick_pkg.utils import dir, file, try_execpt
+from rubick_pkg.responses import CREATED_FILES, TITTLE_BAR, END_BAR
 
 
 @click.command()
@@ -34,34 +34,26 @@ from rubick_pkg.utils import dir, file
 @click.option('--https_priority', default='undefined', prompt='Ingresa la prioridad del listener https',
               help='Prioridad de listener HTTPS en el ALB, este número cambia de acuerdo al ambiente.')
 @pass_context
+@try_execpt.handler
 def command(ctx, **kwargs):
-    try:
-        scaffold_project_dir = os.path.join(ctx.scaffolds_local_repo, 'rest')
+    __create_project(**kwargs)
 
-        # Check scaffold template
-        if not dir.exists(scaffold_project_dir):
-            raise Exception('No se encontro el directorio base para el api rest, utiliza rubick scaffolds:update')
 
-        ctx.logger.info("== Archivos creados ==")
-        for root, dirs, files in os.walk(scaffold_project_dir):
-            for file_name in files:
-                    # template content
-                    template_content = file.read(os.path.join(root, file_name))
+def __create_project(**kwargs):
+    scaffold = dir.get_scaffold_dir(paths=['rest'])
+    click.echo(TITTLE_BAR % CREATED_FILES)
+    for root, dirs, files in os.walk(scaffold):
+        for file_name in files:
+            # template content
+            template_content = file.read(os.path.join(root, file_name))
 
-                    # paths for new project
-                    new_project_path = root.replace('+package+', kwargs['package']).replace(scaffold_project_dir, os.path.join('.', kwargs['name']))
-                    new_file_path = os.path.join(new_project_path, file_name)
-                    new_dir_path = os.path.dirname(new_file_path)
+            # paths for new project
+            project_path = root.replace('+package+', kwargs['package']).replace(scaffold, os.path.join('.', kwargs['name']))
+            full_file_name = os.path.join(project_path, file_name)
+            dir.create_file_path(full_file_name=full_file_name)
 
-                    # create project
-                    if not dir.create(new_dir_path):
-                        raise Exception('No se pudo crear el directorio: %s' % new_dir_path)
+            file.create(file_name=full_file_name, template_content=template_content, **kwargs)
 
-                    file.create(new_file_path, template_content, **kwargs)
-
-                    # created files
-                    print(new_file_path)
-    except Exception as e:
-        ctx.logger.error(e)
-        if ctx.verbose:
-            ctx.logger.error(traceback.format_exc())
+            # created files
+            click.echo(full_file_name)
+    click.echo(END_BAR)

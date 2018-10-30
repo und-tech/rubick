@@ -1,9 +1,9 @@
 import click
 import os
 
-from rubick_pkg.rubick import pass_context
+from rubick_pkg.context import pass_context
 from rubick_pkg.utils import file, dir, try_execpt
-from rubick_pkg import SUCCESSFUL_COMMAND, NOT_RUBICK_FILE
+from rubick_pkg.responses import SUCCESSFUL_COMMAND, NOT_RUBICK_FILE
 
 
 @click.command()
@@ -12,7 +12,7 @@ from rubick_pkg import SUCCESSFUL_COMMAND, NOT_RUBICK_FILE
 @pass_context
 @try_execpt.handler
 def command(ctx, command_name):
-    scaffold_command, scaffold_cloud_formation = __get_scaffold_paths(ctx)
+    scaffold_command, scaffold_cloud_formation = __get_scaffold_paths()
 
     # generate variables for templates
     template_variables = __generate_template_variables(ctx, command_name)
@@ -31,8 +31,8 @@ def command(ctx, command_name):
 
 def __add_command(scaffold, path, **tmp_data):
     walked = dir.walk(scaffold)
-    command_tmp = file.read(os.path.join(walked[0]['root'], walked[0]['files'][1]))
-    file_path = os.path.join(path, walked[0]['files'][1].replace('+command_name+.py',
+    command_tmp = file.read(os.path.join(walked[0]['root'], walked[0]['files'][0]))
+    file_path = os.path.join(path, walked[0]['files'][0].replace('+command_name+.py',
                                                                  '%s.py' % tmp_data['command_name']))
     # create the command file
     file.create(file_name=file_path, template_content=command_tmp, **tmp_data)
@@ -52,10 +52,10 @@ def __generate_template_variables(ctx, command_name):
     return ctx.rubick_data['variables']
 
 
-def __get_scaffold_paths(ctx):
-    base_path = os.path.join(ctx.scaffolds_local, 'schedule', 'create')
-    scaffold_command = os.path.join(base_path, 'schedules', 'commands')
-    scaffold_cloud_formation = os.path.join(base_path, 'cloudformation', 'stacks', 'schedules.yml')
+def __get_scaffold_paths():
+    base_path = ['schedule', 'create']
+    scaffold_command = dir.get_scaffold_dir(paths=base_path + ['schedules', 'commands'])
+    scaffold_cloud_formation = dir.get_scaffold_dir(paths=base_path + ['cloudformation', 'stacks', 'schedules.yml'])
     return scaffold_command, scaffold_cloud_formation
 
 

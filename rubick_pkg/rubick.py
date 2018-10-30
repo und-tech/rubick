@@ -2,36 +2,17 @@ import click
 import os
 
 from git import Repo
-from os.path import expanduser
-from rubick_pkg.utils import dir, file, logger, try_execpt
-from rubick_pkg import HELP_DESCRIPTION, RUBICK_FILE_NAME
-
-
-config_folder = os.path.join(os.path.dirname(__file__), 'config.yaml')
-command_folder = os.path.join(os.path.dirname(__file__), 'commands')
-
-
-class Context(object):
-    def __init__(self):
-        try:
-            self.pwd = os.getcwd()
-            self.config = file.read_yml(config_folder)
-            self.logger = logger.create('rubick_logger')
-            self.scaffolds_remote = self.config['scaffolds']['url']
-            self.scaffolds_local = os.path.join(expanduser("~"), 'rubick-scaffolds')
-            self.rubick_data = file.read_json(RUBICK_FILE_NAME) if file.exists(RUBICK_FILE_NAME) else None
-        except Exception as e:
-            raise e
-
-
-pass_context = click.make_pass_decorator(Context, ensure=True)
+from rubick_pkg.context import pass_context
+from rubick_pkg.utils import dir, logger, try_execpt
+from rubick_pkg.responses import HELP_DESCRIPTION
+from rubick_pkg.constants import COMMAND_FOLDER
 
 
 class RubickCLI(click.MultiCommand):
     def list_commands(self, ctx):
         try:
             rv = []
-            for filename in os.listdir(command_folder):
+            for filename in os.listdir(COMMAND_FOLDER):
                 if filename.endswith('.py'):
                     rv.append(filename[:-3])
             rv.sort()
@@ -43,12 +24,12 @@ class RubickCLI(click.MultiCommand):
     def get_command(self, ctx, name):
         try:
             ns = {}
-            fn = os.path.join(command_folder, name + '.py')
+            fn = os.path.join(COMMAND_FOLDER, name + '.py')
             with open(fn) as f:
                 code = compile(f.read(), fn, 'exec')
                 eval(code, ns, ns)
             return ns['command']
-        except KeyError:
+        except (KeyError, FileNotFoundError):
             pass
         except Exception as e:
             log = logger.create('get_command_logger')
