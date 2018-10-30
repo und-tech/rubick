@@ -1,2 +1,8 @@
 scaffolds:
   url: https://github.com/und-tech/rubick-scaffolds
+rest:
+  scaffolds_route_base: 'rest/app'
+  project_route_base: '/app'
+  scaffolds_name_file: 'example'
+  project_config_file: 'rubick.json'
+  scaffolds_context_alias: '+package+'

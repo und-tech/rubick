@@ -55,3 +55,14 @@ def assing_execute(file_name):
 def is_bash(file_name):
     if file_name[-3:] == '.sh':
         assing_execute(file_name)
+
+
+def read_lines(path):
+    with open(path, 'r') as f:
+        content = f.readlines()
+    return content
+
+
+def save_file(path, content):
+    with open(path, 'w') as f:
+        f.write(content)
