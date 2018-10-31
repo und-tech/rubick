@@ -1,10 +1,21 @@
-# rubick
+![Rubick Logo](http://freevector.co/wp-content/uploads/2010/07/24941-magician-hat-with-facial-hair1.png)
+# Rubick
 
-Esta herramienta utiliza plantillas almacenadas en "https://github.com/und-tech/rubick-scaffolds" para poder generar un proyecto base
+##### ¿Qué es?
+Es una linea de comando que utiliza plantillas (scaffolds) para generar una estructura base.
+
+##### ¿Dónde se encuentran los scaffolds?
+Las plantillas estan almacenadas en el repositorio https://github.com/und-tech/rubick-scaffolds, la estructura de estas plantillas cumple con la arquitectura propuesta para nuestros proyectos.
+
+##### ¿Qué tipos de proyectos puedo crear?
+
+* APIrest (python, netCore, nodeJS)
+* Crones o Schedules (python)
 
 # Requerimientos
 
 * python3
+* supertools
 * git
 
 # Instalación:
