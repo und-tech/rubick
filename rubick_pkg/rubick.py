@@ -41,15 +41,15 @@ cli = RubickCLI(help=HELP_DESCRIPTION)
 
 @click.command(cls=RubickCLI)
 @click.option('-v', '--verbose', is_flag=True, help='Activa el traceback del código.')
-@click.option('--scaffolds', default=False, type=click.Path(),
-              help='Coloca la ruta absoluta de tus scaffolds personalizados.')
+@click.option('--scaffolds', default=None, type=click.Path(),
+              help='Define la ruta absoluta de tus scaffolds personalizados.')
 @pass_context
 @try_execpt.handler
 def cli(ctx, verbose, scaffolds):
     ctx.verbose = verbose
 
-    if scaffolds:
+    if scaffolds is not None:
         ctx.scaffolds_local = scaffolds
 
-    if not dir.exists(ctx.scaffolds_local):
+    if not dir.exists(ctx.scaffolds_local) and scaffolds is None:
         Repo.clone_from(ctx.scaffolds_remote, ctx.scaffolds_local)
