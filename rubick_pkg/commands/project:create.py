@@ -63,11 +63,11 @@ def __launch_prompts(scaffold_data):
 
 
 def __replace_names(search, replace, subject):
+    new_subject = subject
     if search.get('base', {}).get('replace_names', False):
         for replace_data in search['base']['replace_names']:
-            return subject.replace('%s' % replace_data['search'], '%s' % replace[replace_data['use_prompt']])
-    else:
-        return subject
+            new_subject = new_subject.replace('%s' % replace_data['search'], '%s' % replace[replace_data['use_prompt']])
+    return new_subject
 
 
 def __save_prompts_data(scaffold_data, project_path, **prompts):
