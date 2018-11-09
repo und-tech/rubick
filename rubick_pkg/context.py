@@ -13,7 +13,7 @@ class Context(object):
             self.config = file.read_yml(CONFIG_FOLDER)
             self.logger = logger.create('rubick_logger')
             self.scaffolds_remote = self.config['scaffolds']['url']
-            self.scaffolds_local = os.path.join(expanduser("~"), 'rubick-scaffolds')
+            self.scaffolds_local = os.path.join(expanduser("/tmp"), 'rubick-scaffolds')
             self.rubick_data = file.read_json(RUBICK_FILE_NAME) if file.exists(RUBICK_FILE_NAME) else None
         except Exception as e:
             raise e

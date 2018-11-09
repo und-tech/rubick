@@ -23,3 +23,8 @@ remove: ## remove library
 
 clear: ## clear workspace
 	sudo rm -rf build dist rubick.egg-info
+
+
+# Docker Commands #
+build-docker:
+	docker build -f docker/Dockerfile --no-cache -t devlusaja/rubick .
