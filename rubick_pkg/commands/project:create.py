@@ -1,9 +1,11 @@
 import click
 import os
+import json
 
 from rubick_pkg.context import pass_context
 from rubick_pkg.utils import try_execpt, file, dir
-from rubick_pkg.responses import TITTLE_BAR, CREATED_FILES, END_BAR
+from rubick_pkg.responses import TITTLE_BAR, CREATED_FILES, END_BAR, SCAFFOLD_HAS_NOT_BASE
+from rubick_pkg.constants import SCAFFOLD_FILE_NAME
 
 
 @click.command()
@@ -17,37 +19,63 @@ from rubick_pkg.responses import TITTLE_BAR, CREATED_FILES, END_BAR
 @try_execpt.handler
 def command(ctx, scaffold_name, **kwargs):
     scaffold_dir = dir.get_scaffold_dir(paths=[scaffold_name])
-    scaffold_data = file.read_yml(os.path.join(scaffold_dir, '.scaffold'))
+    scaffold_data = file.read_yml(os.path.join(scaffold_dir, SCAFFOLD_FILE_NAME))
+    project_path = os.path.join(ctx.pwd, kwargs['name'])
     prompts = __launch_prompts(scaffold_data)
     prompts.update(kwargs)
 
-    click.echo(TITTLE_BAR % CREATED_FILES)
-    for root, dirs, files in os.walk(scaffold_dir):
-        for file_name in files:
-            # template content
-            template_content = file.read(os.path.join(root, file_name))
+    if scaffold_data.get('base', False):
+        click.echo(TITTLE_BAR % CREATED_FILES)
+        for root, dirs, files in os.walk(scaffold_dir):
+            for file_name in files:
+                # template content
+                template_content = file.read(os.path.join(root, file_name))
 
-            # paths for new project
-            project_path = root.replace(scaffold_dir, os.path.join('.', prompts['name']))
-            full_file_name = __replace_names(search=scaffold_data, replace=prompts, subject=os.path.join(project_path,
-                                                                                                         file_name))
+                # paths for new project
+                file_path = root.replace(scaffold_dir, project_path)
+                full_file_name = __replace_names(search=scaffold_data, replace=prompts,
+                                                 subject=os.path.join(file_path, file_name))
 
-            dir.create_file_path(full_file_name=full_file_name)
+                dir.create_file_path(full_file_name=full_file_name)
 
-            file.create(file_name=full_file_name, template_content=template_content, **prompts)
+                file.create(file_name=full_file_name, template_content=template_content, **prompts)
 
-            # created files
-            click.echo(full_file_name)
-    click.echo(END_BAR)
+                # created files
+                click.echo(full_file_name)
+
+        # Save prompts data in project directory
+        __save_prompts_data(scaffold_data, project_path, **prompts)
+
+        # Remove .scaffold file from project
+        __remove_scaffold_file(project_path)
+
+        click.echo(END_BAR)
+    else:
+        raise Exception(SCAFFOLD_HAS_NOT_BASE)
 
 
 def __launch_prompts(scaffold_data):
     inputs = dict()
-    for prompt in scaffold_data['base']['prompts']:
-        inputs[prompt['name']] = click.prompt(prompt['description'], default=prompt['default'])
+    if scaffold_data.get('base', {}).get('prompts', False):
+        for prompt in scaffold_data['base']['prompts']:
+            inputs[prompt['name']] = click.prompt(prompt['description'], default=prompt['default'])
     return inputs
 
 
 def __replace_names(search, replace, subject):
-    for replace_data in search['base']['replace_names']:
-        return subject.replace('%s' % replace_data['search'], '%s' % replace[replace_data['use_prompt']])
+    if search.get('base', {}).get('replace_names', False):
+        for replace_data in search['base']['replace_names']:
+            return subject.replace('%s' % replace_data['search'], '%s' % replace[replace_data['use_prompt']])
+    else:
+        return subject
+
+
+def __save_prompts_data(scaffold_data, project_path, **prompts):
+    if scaffold_data.get('base', {}).get('save_prompts', False):
+        prompts_file = os.path.join(project_path, scaffold_data['base']['save_prompts'])
+        file.create(file_name=prompts_file)
+        file.append(prompts_file, json.dumps(prompts))
+
+
+def __remove_scaffold_file(project_path):
+    os.remove(os.path.join(project_path, SCAFFOLD_FILE_NAME))
