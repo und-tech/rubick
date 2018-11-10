@@ -15,9 +15,8 @@ def command(ctx):
             try:
                 scaffold = file.read_yml(os.path.join(ctx.scaffolds_local, dir, '.scaffold'))
                 click.echo('---')
-                click.echo('Tittle: %s' % scaffold['base']['name'])
+                click.echo('ScaffoldName: %s' % scaffold['base']['scaffold_name'])
                 click.echo('Description: %s' % scaffold['base']['description'])
-                click.echo('Scaffold name: %s' % scaffold['base']['scaffold_name'])
             except Exception as e:
                 pass
     click.echo()
