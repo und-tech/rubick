@@ -1,61 +1,48 @@
-![Rubick Logo](http://freevector.co/wp-content/uploads/2010/07/24941-magician-hat-with-facial-hair1.png)
-# Rubick
+![Rubick Logo](https://i.imgur.com/JcJOzXA.png)
 
-##### ¿Qué es?
-Es una linea de comando que utiliza plantillas (scaffolds) para generar una estructura base.
+# Rubick Build tool
+> Rubick es una linea de comando que nos permite utilizar scaffolds para generar la estructura base de cualquier tipo de proyecto.
 
-##### ¿Dónde se encuentran los scaffolds?
-Las plantillas estan almacenadas en el repositorio https://github.com/und-tech/rubick-scaffolds, la estructura de estas plantillas cumple con la arquitectura propuesta para nuestros proyectos.
+# Scaffold
+> Un scaffold (andamios) es una plantilla que contiene la estructura del proyecto y una serie de indicaciones las cuales seran utilizadas por Rubick para crear de manera dinamica el proyecto.
+Rubick cuenta con scaffolds genericos almacenados en el repositorio https://github.com/und-tech/rubick-scaffolds, pero lo genial es que tambien puedes crear tus propios scaffolds y pasarlos a Rubick.
 
-##### ¿Qué tipos de proyectos puedo crear?
+# Instalación:
+Rubick ofrece 3 formas para instalarlo
 
-* APIrest (python, netCore, nodeJS)
-* Crones o Schedules (python)
+#### 1. PIP
+Requerimientos:
+* python3
+* git
+```sh
+pip install rubick
+rubick
+```
 
-# Requerimientos
-
+#### 2. Clonar el repositorio
+Requerimientos:
 * python3
 * supertools
 * git
 
-# Instalación:
-
-~~~~
-$ pip install rubick
-~~~~
-
-También puedes instalar directamente desde el repositorio
-
-~~~~
-$ git clone https://github.com/und-tech/rubick
-$ cd rubick
-$ make install-developer
-$ rubick
-~~~~
+```sh
+git clone https://github.com/und-tech/rubick
+cd rubick
+make install-developer
+rubick
+```
 
 [![asciicast](https://asciinema.org/a/ArNF5eyZkVdojLwq78Kvjd15g.png)](https://asciinema.org/a/ArNF5eyZkVdojLwq78Kvjd15g)
 
-# Creación de un proyecto
+#### 3. Docker
+Requerimientos:
+* docker
+```sh
+docker pull devlusaja/rubick
+docker run -it devlusaja/rubick
+```
 
-Este comando creara la estructura de un proyecto Rest basado en python
+# Licencia
+MIT
 
-~~~~
-$ rubick api:create
-~~~~
-
-[![asciicast](https://asciinema.org/a/sJKZVCFcMZed30s7XNduDdSE4.png)](https://asciinema.org/a/sJKZVCFcMZed30s7XNduDdSE4)
-
-
-# Actualización de Scaffolds
-
-Si los templates son modificados podemos usar este comando para actualizar nuestra copia local
-
-~~~~
-$ rubick scaffolds:update
-~~~~
-
-Para ver más comandos:
-
-~~~~
-$ rubick
-~~~~
+**Free Software, Hell Yeah!**
