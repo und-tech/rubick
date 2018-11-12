@@ -14,7 +14,8 @@ setup(
     install_requires = ["click==6.7",
                         "Jinja2==2.10",
                         "GitPython==2.1.11",
-                        "PyYAML==3.12"],
+                        "PyYAML==3.12",
+                        "terminaltables==3.1.0"],
     classifiers = [
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
