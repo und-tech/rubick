@@ -1,11 +1,10 @@
 ![Rubick Logo](https://i.imgur.com/JcJOzXA.png)
 
 # Rubick Build tool
-> Rubick es una herramienta versatil que nos permite utilizar scaffolds para generar la estructura base de cualquier tipo de proyecto.
+> Rubick es una herramienta versátil que nos permite utilizar scaffolds para generar la estructura base de cualquier tipo de proyecto.
 
 # Scaffold
-> Un scaffold (andamios) es una plantilla que contiene la estructura del proyecto y una serie de indicaciones (lenguaje ubicuo) las cuales seran utilizadas por Rubick para crear de manera dinamica el proyecto.
-Rubick cuenta con scaffolds genericos almacenados en el repositorio https://github.com/und-tech/rubick-scaffolds, pero lo genial es que tambien puedes crear tus propios scaffolds y pasarlos a Rubick.
+> Un scaffold (andamios) es una plantilla que contiene la estructura del proyecto y una serie de indicaciones (lenguaje ubicuo) las cuales serán utilizadas por Rubick para crear de manera dinámica el proyecto. Rubick cuenta con scaffolds genericos almacenados en el repositorio https://github.com/und-tech/rubick-scaffolds, pero lo genial es que también puedes crear tus propios scaffolds y pasarlos a Rubick.
 
 # Instalación:
 Rubick ofrece 3 formas para instalarlo
@@ -71,7 +70,7 @@ scaffold:
       use_prompt: 'package'
 ```
 
-# Características
+# Caracteristicas
 
 - [x] Creación de proyectos.
 - [ ] Filtros de búsqueda en el comando scaffolds:list.
