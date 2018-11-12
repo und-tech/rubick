@@ -47,8 +47,9 @@ docker run -it devlusaja/rubick
 # Lenguaje Ubicuo
 Cualquier scaffold que se desee pasar a Rubick debera incluir un archivo .scaffold en el cual se ingresaran las instrucciones para Rubick
 ```yaml
-base:
-  scaffold_name: 'APIrest'
+scaffold:
+  author: 'Developer'
+  name: 'APIrest'
   description: 'API escrita en el lenguaje python utilizando una arquitectura hexagonal.'
   save_prompts: 'prompts.json'
   prompts:

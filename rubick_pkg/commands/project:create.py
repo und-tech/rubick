@@ -24,7 +24,7 @@ def command(ctx, scaffold_name, **kwargs):
     prompts = __launch_prompts(scaffold_data)
     prompts.update(kwargs)
 
-    if scaffold_data.get('base', False):
+    if scaffold_data.get('scaffold', False):
         click.echo(TITTLE_BAR % CREATED_FILES)
         for root, dirs, files in os.walk(scaffold_dir):
             for file_name in files:
@@ -56,23 +56,23 @@ def command(ctx, scaffold_name, **kwargs):
 
 def __launch_prompts(scaffold_data):
     inputs = dict()
-    if scaffold_data.get('base', {}).get('prompts', False):
-        for prompt in scaffold_data['base']['prompts']:
+    if scaffold_data.get('scaffold', {}).get('prompts', False):
+        for prompt in scaffold_data['scaffold']['prompts']:
             inputs[prompt['name']] = click.prompt(prompt['description'], default=prompt['default'])
     return inputs
 
 
 def __replace_names(search, replace, subject):
     new_subject = subject
-    if search.get('base', {}).get('replace_names', False):
-        for replace_data in search['base']['replace_names']:
+    if search.get('scaffold', {}).get('replace_names', False):
+        for replace_data in search['scaffold']['replace_names']:
             new_subject = new_subject.replace('%s' % replace_data['search'], '%s' % replace[replace_data['use_prompt']])
     return new_subject
 
 
 def __save_prompts_data(scaffold_data, project_path, **prompts):
-    if scaffold_data.get('base', {}).get('save_prompts', False):
-        prompts_file = os.path.join(project_path, scaffold_data['base']['save_prompts'])
+    if scaffold_data.get('scaffold', {}).get('save_prompts', False):
+        prompts_file = os.path.join(project_path, scaffold_data['scaffold']['save_prompts'])
         file.create(file_name=prompts_file)
         file.append(prompts_file, json.dumps(prompts))
 

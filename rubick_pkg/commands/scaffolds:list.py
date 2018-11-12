@@ -12,14 +12,15 @@ from rubick_pkg.utils import try_execpt, file
 def command(ctx):
     dirs = os.listdir(ctx.scaffolds_local)
     table_data = [
-        ['Scaffold Name', 'Description']
+        ['Scaffold Name', 'Description', 'Author']
     ]
     for dir in dirs:
         if dir[0] is not '.':
             try:
                 scaffold = file.read_yml(os.path.join(ctx.scaffolds_local, dir, '.scaffold'))
-                table_data.append([scaffold['base']['scaffold_name'],
-                                   scaffold['base']['description']
+                table_data.append([scaffold['scaffold']['name'],
+                                   scaffold['scaffold']['description'],
+                                   scaffold['scaffold']['author']
                                    ]
                                   )
             except Exception as e:
