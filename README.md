@@ -73,10 +73,10 @@ scaffold:
 
 # Características
 
-[x] Creación de proyectos.
-[ ] Filtros de búsqueda en el comando scaffolds:list.
-[ ] Soporte para la opción --scaffolds en la imagen de docker.
-[ ] Lenguaje ubicuo para la generación de código dentro de un proyecto.
+- [x] Creación de proyectos.
+- [ ] Filtros de búsqueda en el comando scaffolds:list.
+- [ ] Soporte para la opción --scaffolds en la imagen de docker.
+- [ ] Lenguaje ubicuo para la generación de código dentro de un proyecto.
 
 # Licencia
 MIT
