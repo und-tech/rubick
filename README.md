@@ -76,6 +76,7 @@ scaffold:
 - [x] Creación de proyectos.
 - [ ] Filtros de búsqueda en el comando scaffolds:list.
 - [ ] Soporte para la opción --scaffolds en la imagen de docker.
+- [ ] Comando para la validación de la sintaxis de un scaffold.
 - [ ] Lenguaje ubicuo para la generación de código dentro de un proyecto.
 
 # Licencia
