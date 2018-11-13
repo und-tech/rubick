@@ -1,10 +1,10 @@
 ![Rubick Logo](https://i.imgur.com/JcJOzXA.png)
 
 # Rubick Build tool
-> Rubick es una herramienta versátil que nos permite utilizar scaffolds para generar la estructura base de cualquier tipo de proyecto.
+> Es una herramienta OpenSource escrita en Python que nos permite utilizar scaffolds para generar la estructura base de cualquier tipo de proyecto sin importar el lenguaje de programación o el tamaño del proyecto.
 
 # Scaffold
-> Un scaffold (andamios) es una plantilla que contiene la estructura del proyecto y una serie de indicaciones (lenguaje ubicuo) las cuales serán utilizadas por Rubick para crear de manera dinámica el proyecto. Rubick cuenta con scaffolds genericos almacenados en el repositorio https://github.com/und-tech/rubick-scaffolds, pero lo genial es que también puedes crear tus propios scaffolds y pasarlos a Rubick.
+> Un scaffold (andamios) es una plantilla que contiene la estructura del proyecto y una serie de indicaciones (especificación) las cuales serán utilizadas por Rubick para crear de manera dinámica el proyecto. Rubick cuenta con scaffolds genericos almacenados en el repositorio [https://github.com/und-tech/rubick-scaffolds](https://github.com/und-tech/rubick-scaffolds), pero lo genial es que también puedes crear tus propios scaffolds para que Rubick los utilice.
 
 # Instalación:
 Rubick ofrece 3 formas para instalarlo
@@ -43,8 +43,10 @@ docker pull devlusaja/rubick
 docker run -it devlusaja/rubick
 ```
 
-# Lenguaje Ubicuo
-Cualquier scaffold que se desee pasar a Rubick debera incluir un archivo .scaffold en el cual se ingresaran las instrucciones para Rubick
+# Especificación
+Se apuesta por utilizar una especificación o lenguaje que será interpretado por Rubick al momento de crear un proyecto.
+Esta especificación nos da la libertad de poder crear diferentes tipos de scaffolds sin la necesidad de hacer cambios en Rubick 
+Todo scaffold debe incluir un archivo .scaffold en el cual se ingresaran las instrucciones para Rubick
 ```yaml
 scaffold:
   author: 'Developer'
@@ -76,7 +78,7 @@ scaffold:
 - [ ] Filtros de búsqueda en el comando scaffolds:list.
 - [ ] Soporte para la opción --scaffolds en la imagen de docker.
 - [ ] Comando para la validación de la sintaxis de un scaffold.
-- [ ] Lenguaje ubicuo para la generación de código dentro de un proyecto.
+- [ ] Especificación para la generación de código dentro de un proyecto.
 
 # Licencia
 MIT
