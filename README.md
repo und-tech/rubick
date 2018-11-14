@@ -14,7 +14,7 @@ Requerimientos:
 * python3
 * git
 ```sh
-pip install rubick
+pip3 install rubick
 rubick
 ```
 

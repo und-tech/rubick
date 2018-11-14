@@ -10,6 +10,9 @@ twine: ## install twine
 upload-pypi-test: ## upload the package in pypi test
 	python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
+upload-pypi-production: ## upload the package in pypi production
+	python3 -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+
 install-test: ## install package from pypi test
 	sudo python3 -m pip install --index-url https://test.pypi.org/simple/ rubick
 

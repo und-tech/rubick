@@ -40,9 +40,9 @@ cli = RubickCLI(help=HELP_DESCRIPTION)
 
 
 @click.command(cls=RubickCLI)
-@click.option('-v', '--verbose', is_flag=True, help='Activa el traceback del código.')
+@click.option('-v', '--verbose', is_flag=True, help="Enabled the code's traceback.")
 @click.option('--scaffolds', default=None, type=click.Path(),
-              help='Define la ruta absoluta de tus scaffolds personalizados.')
+              help='Used to establish the absolute path of your custom scaffolds.')
 @pass_context
 @try_execpt.handler
 def cli(ctx, verbose, scaffolds):

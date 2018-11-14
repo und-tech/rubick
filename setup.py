@@ -4,10 +4,12 @@ from setuptools import setup, find_packages
 package_dir = os.path.abspath(os.path.dirname(__file__))
 setup(
     name = "rubick",
-    version = "0.0.1",
+    version = "0.0.2",
     author = "Orbis Venture S.A.C",
     author_email = "oscar.sanchez@orbis.com.pe",
-    description = "Herramienta para la creación de proyectos base",
+    description = "Es una herramienta OpenSource escrita en Python que nos permite "
+                  "utilizar scaffolds para generar la estructura base de cualquier tipo de "
+                  "proyecto sin importar el lenguaje de programación o el tamaño del proyecto",
     package_data={'': ['config.yaml']},
     packages = find_packages(),
     include_package_data=True,
