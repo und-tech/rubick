@@ -12,6 +12,7 @@ Rubick ofrece 3 formas para instalarlo
 #### 1. PIP
 Requerimientos:
 * python3
+* pip3
 * git
 ```sh
 pip3 install rubick
@@ -21,17 +22,18 @@ rubick
 #### 2. Clonar el repositorio
 Requerimientos:
 * python3
+* pip3
 * supertools
 * git
 
 ```sh
 git clone https://github.com/und-tech/rubick
 cd rubick
-make install-developer
+make install-from-source
 rubick
 ```
 
-[![asciicast](https://asciinema.org/a/ArNF5eyZkVdojLwq78Kvjd15g.png)](https://asciinema.org/a/ArNF5eyZkVdojLwq78Kvjd15g)
+[![asciicast](https://asciinema.org/a/l6dRXwJEe0OaJWmGu9RxH3uBH.png)](https://asciinema.org/a/l6dRXwJEe0OaJWmGu9RxH3uBH)
 
 #### 3. Docker
 [Click para ir al repositorio de la imagen de Docker](https://hub.docker.com/r/devlusaja/rubick/)
