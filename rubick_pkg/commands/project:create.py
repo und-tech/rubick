@@ -9,12 +9,8 @@ from rubick_pkg.constants import SCAFFOLD_FILE_NAME
 
 
 @click.command()
-@click.option('--scaffold_name', prompt='Ingrese el nombre del scaffold')
-@click.option('--product_name', type=click.Choice(['urbania', 'neo', 'aptitus', 'pagoefectivo']),
-              prompt='Ingresa el nombre del producto [urbania, neo, aptitus, pagoefectivo]',
-              help='Nombre del producto.')
-@click.option('--name', default='my_project', prompt='Ingresa el nombre de tu proyecto',
-              help='Nombre del proyecto.')
+@click.option('--scaffold_name', prompt='Enter the scaffold name', help='Scaffold name.')
+@click.option('--name', default='my_project', prompt='Enter the project name', help='Project name.')
 @pass_context
 @try_execpt.handler
 def command(ctx, scaffold_name, **kwargs):
