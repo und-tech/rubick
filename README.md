@@ -1,13 +1,13 @@
-![Rubick Logo](https://i.imgur.com/JcJOzXA.png)
+![Ant Logo](https://i.imgur.com/JcJOzXA.png)
 
-# Rubick Build tool
+# Ant Build tool
 > Es una herramienta OpenSource escrita en Python que nos permite utilizar scaffolds para generar la estructura base de cualquier tipo de proyecto sin importar el lenguaje de programación o el tamaño del proyecto.
 
 # Scaffold
-> Un scaffold (andamios) es una plantilla que contiene la estructura del proyecto y una serie de indicaciones (especificación) las cuales serán utilizadas por Rubick para crear de manera dinámica el proyecto. Rubick cuenta con scaffolds genericos almacenados en el repositorio [https://github.com/und-tech/rubick-scaffolds](https://github.com/und-tech/rubick-scaffolds), pero lo genial es que también puedes crear tus propios scaffolds para que Rubick los utilice.
+> Un scaffold (andamios) es una plantilla que contiene la estructura del proyecto y una serie de indicaciones (especificación) las cuales serán utilizadas por Ant para crear de manera dinámica el proyecto. Ant cuenta con scaffolds genericos almacenados en el repositorio [https://github.com/und-tech/ant-scaffolds](https://github.com/und-tech/ant-scaffolds), pero lo genial es que también puedes crear tus propios scaffolds para que Ant los utilice.
 
 # Instalación:
-Rubick ofrece 3 formas para instalarlo
+Ant ofrece 3 formas para instalarlo
 
 #### 1. PIP
 Requerimientos:
@@ -15,8 +15,8 @@ Requerimientos:
 * pip3
 * git
 ```sh
-pip3 install rubick
-rubick
+pip3 install ant-cli
+ant
 ```
 
 #### 2. Clonar el repositorio
@@ -27,28 +27,28 @@ Requerimientos:
 * git
 
 ```sh
-git clone https://github.com/und-tech/rubick
-cd rubick
+git clone https://github.com/und-tech/ant
+cd ant
 make install-from-source
-rubick
+ant
 ```
 
 [![asciicast](https://asciinema.org/a/l6dRXwJEe0OaJWmGu9RxH3uBH.png)](https://asciinema.org/a/l6dRXwJEe0OaJWmGu9RxH3uBH)
 
 #### 3. Docker
-[Click para ir al repositorio de la imagen de Docker](https://hub.docker.com/r/devlusaja/rubick/)
+[Click para ir al repositorio de la imagen de Docker](https://hub.docker.com/r/devlusaja/ant/)
 
 Requerimientos:
 * docker
 ```sh
-docker pull devlusaja/rubick
-docker run -it devlusaja/rubick
+docker pull devlusaja/ant
+docker run -it devlusaja/ant
 ```
 
 # Especificación
-Se apuesta por utilizar una especificación o lenguaje que será interpretado por Rubick al momento de crear un proyecto.
-Esta especificación nos da la libertad de poder crear diferentes tipos de scaffolds sin la necesidad de hacer cambios en Rubick 
-Todo scaffold debe incluir un archivo .scaffold en el cual se ingresaran las instrucciones para Rubick
+Se apuesta por utilizar una especificación o lenguaje que será interpretado por Ant al momento de crear un proyecto.
+Esta especificación nos da la libertad de poder crear diferentes tipos de scaffolds sin la necesidad de hacer cambios en Ant 
+Todo scaffold debe incluir un archivo .scaffold en el cual se ingresaran las instrucciones para Ant
 ```yaml
 scaffold:
   author: 'Developer'
@@ -74,7 +74,7 @@ scaffold:
       use_prompt: 'package'
 ```
 
-# Caracteristicas
+# Características
 
 - [x] Creación de proyectos.
 - [ ] Filtros de búsqueda en el comando scaffolds:list.

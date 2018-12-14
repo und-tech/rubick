@@ -2,7 +2,7 @@
 import traceback
 
 from functools import wraps
-from rubick_pkg.utils.logger import create
+from ant_pkg.utils.logger import create
 
 
 def handler(method):

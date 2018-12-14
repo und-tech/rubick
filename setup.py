@@ -3,8 +3,8 @@ from setuptools import setup, find_packages
 
 package_dir = os.path.abspath(os.path.dirname(__file__))
 setup(
-    name = "rubick",
-    version = "0.0.4",
+    name = "ant-cli",
+    version = "0.0.1",
     author = "Orbis Venture S.A.C",
     author_email = "oscar.sanchez@orbis.com.pe",
     description = "Es una herramienta OpenSource escrita en Python que nos permite "
@@ -23,5 +23,5 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    scripts = ['bin/rubick'],
+    scripts = ['bin/ant'],
 )

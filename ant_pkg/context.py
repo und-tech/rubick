@@ -2,8 +2,8 @@ import os
 import click
 
 from os.path import expanduser
-from rubick_pkg.utils import file, logger
-from rubick_pkg.constants import CONFIG_FOLDER
+from ant_pkg.utils import file, logger
+from ant_pkg.constants import CONFIG_FOLDER
 
 
 class Context(object):
@@ -11,9 +11,9 @@ class Context(object):
         try:
             self.pwd = os.getcwd()
             self.config = file.read_yml(CONFIG_FOLDER)
-            self.logger = logger.create('rubick_logger')
+            self.logger = logger.create('ant_logger')
             self.scaffolds_remote = self.config['scaffolds']['url']
-            self.scaffolds_local = os.path.join(expanduser("/tmp"), 'rubick-scaffolds')
+            self.scaffolds_local = os.path.join(expanduser("/tmp"), 'ant-scaffolds')
         except Exception as e:
             raise e
 

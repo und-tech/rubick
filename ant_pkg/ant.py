@@ -2,13 +2,13 @@ import click
 import os
 
 from git import Repo
-from rubick_pkg.context import pass_context
-from rubick_pkg.utils import dir, logger, try_execpt
-from rubick_pkg.responses import HELP_DESCRIPTION
-from rubick_pkg.constants import COMMAND_FOLDER
+from ant_pkg.context import pass_context
+from ant_pkg.utils import dir, logger, try_execpt
+from ant_pkg.responses import HELP_DESCRIPTION
+from ant_pkg.constants import COMMAND_FOLDER
 
 
-class RubickCLI(click.MultiCommand):
+class AntCLI(click.MultiCommand):
     def list_commands(self, ctx):
         try:
             rv = []
@@ -36,10 +36,10 @@ class RubickCLI(click.MultiCommand):
             log.error(e)
 
 
-cli = RubickCLI(help=HELP_DESCRIPTION)
+cli = AntCLI(help=HELP_DESCRIPTION)
 
 
-@click.command(cls=RubickCLI)
+@click.command(cls=AntCLI)
 @click.option('-v', '--verbose', is_flag=True, help="Enabled the code's traceback.")
 @click.option('--scaffolds', default=None, type=click.Path(),
               help='Used to establish the absolute path of your custom scaffolds.')

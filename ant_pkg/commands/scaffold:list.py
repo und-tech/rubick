@@ -2,8 +2,8 @@ import click
 import os
 
 from terminaltables import AsciiTable
-from rubick_pkg.context import pass_context
-from rubick_pkg.utils import try_execpt, file
+from ant_pkg.context import pass_context
+from ant_pkg.utils import try_execpt, file
 
 
 @click.command()
@@ -31,4 +31,4 @@ def command(ctx):
     click.echo('*****')
     click.echo('Note:')
     click.echo('*****')
-    click.echo('Use "scaffolds:update" if you dont see your template.')
+    click.echo('Use "scaffold:update" if you dont see your template.')

@@ -1,7 +1,7 @@
 import os
 
-from rubick_pkg.context import pass_context
-from rubick_pkg.responses import DIRECTORY_NOT_CREATED, SCAFFOLD_NOT_FOUND
+from ant_pkg.context import pass_context
+from ant_pkg.responses import DIRECTORY_NOT_CREATED, SCAFFOLD_NOT_FOUND
 
 
 def create(path_name):

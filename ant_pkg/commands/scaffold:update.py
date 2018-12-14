@@ -3,9 +3,9 @@ import shutil
 import os
 import time
 
-from rubick_pkg.rubick import pass_context
-from rubick_pkg.utils import try_execpt
-from rubick_pkg.responses import SUCCESSFUL_COMMAND
+from ant_pkg.ant import pass_context
+from ant_pkg.utils import try_execpt
+from ant_pkg.responses import SUCCESSFUL_COMMAND
 from git import Repo
 
 

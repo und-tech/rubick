@@ -2,10 +2,10 @@ import click
 import os
 import json
 
-from rubick_pkg.context import pass_context
-from rubick_pkg.utils import try_execpt, file, dir
-from rubick_pkg.responses import TITTLE_BAR, CREATED_FILES, END_BAR, SCAFFOLD_HAS_NOT_BASE
-from rubick_pkg.constants import SCAFFOLD_FILE_NAME
+from ant_pkg.context import pass_context
+from ant_pkg.utils import try_execpt, file, dir
+from ant_pkg.responses import TITTLE_BAR, CREATED_FILES, END_BAR, SCAFFOLD_HAS_NOT_BASE
+from ant_pkg.constants import SCAFFOLD_FILE_NAME
 
 
 @click.command()
