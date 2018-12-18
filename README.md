@@ -36,13 +36,13 @@ ant
 [![asciicast](https://asciinema.org/a/l6dRXwJEe0OaJWmGu9RxH3uBH.png)](https://asciinema.org/a/l6dRXwJEe0OaJWmGu9RxH3uBH)
 
 #### 3. Docker
-[Click para ir al repositorio de la imagen de Docker](https://hub.docker.com/r/devlusaja/ant/)
+[Click para ir al repositorio de la imagen de Docker](https://hub.docker.com/r/undcomercio/ant/)
 
 Requerimientos:
 * docker
 ```sh
-docker pull devlusaja/ant
-docker run -it devlusaja/ant
+docker pull undcomercio/ant
+docker run -it undcomercio/ant
 ```
 
 # Especificación
