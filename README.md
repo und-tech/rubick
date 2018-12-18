@@ -33,7 +33,7 @@ make install-from-source
 ant
 ```
 
-![ant-install](https://i.imgur.com/IEsY3OL.gif)
+![ant-install](https://i.imgur.com/RZBUoc7.gif)
 
 #### 3. Docker
 [Click para ir al repositorio de la imagen de Docker](https://hub.docker.com/r/undcomercio/ant/)
