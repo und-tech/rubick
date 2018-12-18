@@ -1,12 +1,10 @@
-![Ant Logo](https://i.imgur.com/JcJOzXA.png)
-
-# Ant Build tool
+# Ant
 > Es una herramienta OpenSource escrita en Python que nos permite utilizar scaffolds para generar la estructura base de cualquier tipo de proyecto sin importar el lenguaje de programación o el tamaño del proyecto.
 
 # Scaffold
 > Un scaffold (andamios) es una plantilla que contiene la estructura del proyecto y una serie de indicaciones (especificación) las cuales serán utilizadas por Ant para crear de manera dinámica el proyecto. Ant cuenta con scaffolds genericos almacenados en el repositorio [https://github.com/und-tech/ant-scaffolds](https://github.com/und-tech/ant-scaffolds), pero lo genial es que también puedes crear tus propios scaffolds para que Ant los utilice.
 
-# Instalación:
+# Instalación
 Ant ofrece 3 formas para instalarlo
 
 #### 1. PIP
@@ -81,6 +79,8 @@ scaffold:
 - [ ] Soporte para la opción --scaffolds en la imagen de docker.
 - [ ] Comando para la validación de la sintaxis de un scaffold.
 - [ ] Especificación para la generación de código dentro de un proyecto.
+- [ ] Comando para visualizar la versión de la aplicación.
+
 
 # Licencia
 MIT
