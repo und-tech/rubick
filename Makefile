@@ -1,3 +1,5 @@
+PACKAGE_NAME = ant-cli
+
 supertools: ## isntall supertools
 	python3 -m pip install --user --upgrade setuptools wheel
 
@@ -19,14 +21,14 @@ install-from-prod:
 	@sudo python3 -m pip install --no-cache-dir ant
 
 install-from-test: ## install package from pypi test
-	@sudo python3 -m pip install --no-cache-dir --index-url https://test.pypi.org/simple/ ant
+	@sudo python3 -m pip install --no-cache-dir --index-url https://test.pypi.org/simple/ $(PACKAGE_NAME)
 
 install-from-source: ## install command for developer mode
 	@sudo python3 setup.py install
 	@make clear
 
 remove: ## remove library
-	@sudo pip3 uninstall ant-cli
+	@sudo pip3 uninstall $(PACKAGE_NAME)
 	@make clear
 
 clear: ## clear workspace
