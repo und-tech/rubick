@@ -45,7 +45,7 @@ docker run -it undcomercio/ant
 
 # Especificación
 Se apuesta por utilizar una especificación o lenguaje que será interpretado por Ant al momento de crear un proyecto.
-Esta especificación nos da la libertad de poder crear diferentes tipos de scaffolds sin la necesidad de hacer cambios en Ant 
+Esta especificación nos da la libertad de poder crear diferentes tipos de scaffolds sin la necesidad de hacer cambios en Ant. 
 Todo scaffold debe incluir un archivo .scaffold en el cual se ingresaran las instrucciones para Ant
 ```yaml
 scaffold:
@@ -72,15 +72,27 @@ scaffold:
       use_prompt: 'package'
 ```
 
-# Características
+# Ejemplos
 
-- [x] Creación de proyectos.
-- [ ] Filtros de búsqueda en el comando scaffolds:list.
-- [ ] Soporte para la opción --scaffolds en la imagen de docker.
-- [ ] Comando para la validación de la sintaxis de un scaffold.
-- [ ] Especificación para la generación de código dentro de un proyecto.
-- [ ] Comando para visualizar la versión de la aplicación.
+#### A) En una instalación con PIP3 o desde el origen
 
+##### 1. Listando todos los comandos, opciones y argumentos
+![ant](https://i.imgur.com/Q8kDmCE.png)
+
+##### 2. Listando todos scaffolds
+![ant-scaffold-list](https://i.imgur.com/HAU6FYW.png)
+
+##### 3. Personalizando la lista de scaffolds
+![ant-scaffold-list](https://i.imgur.com/7eT5Zrs.png)
+
+##### 4. Utilizando un scaffold
+![ant-scaffold-assemble](https://i.imgur.com/7FvSlPd.gif)
+
+#### B) Con la imagen de Docker
+
+##### 1. Utilizando un scaffold
+![docker-ant-scaffold-assemble](https://i.imgur.com/EKu4agc.gif)
+ 
 
 # Licencia
 MIT
