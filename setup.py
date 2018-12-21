@@ -7,9 +7,7 @@ setup(
     version = "0.0.1",
     author = "Orbis Venture S.A.C",
     author_email = "oscar.sanchez@orbis.com.pe",
-    description = "Es una herramienta OpenSource escrita en Python que nos permite "
-                  "utilizar scaffolds para generar la estructura base de cualquier tipo de "
-                  "proyecto sin importar el lenguaje de programación o el tamaño del proyecto",
+    description = "Scaffolding tool",
     package_data={'': ['config.yaml']},
     packages = find_packages(),
     include_package_data=True,
