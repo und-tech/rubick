@@ -1,6 +1,10 @@
 
-<div style="display: flex; justify-content: center;">
-  <img src="https://github.com/und-tech/ant/blob/master/logo-ant.png" alt="">
+<div align="center">
+  <img
+    src="https://github.com/und-tech/ant/blob/master/logo-ant.png"
+    alt="ant"
+    width="142"
+  />
 </div>
 
 # Ant
